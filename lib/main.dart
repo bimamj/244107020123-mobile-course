@@ -137,7 +137,7 @@ class MyApp extends StatelessWidget {
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             Icon(Icons.person, size: 72),
             SizedBox(height: 16),
-            Text('Bima Julian', style: TextStyle(fontSize: 24)),
+            Text('MuhammadBima Julian', style: TextStyle(fontSize: 24)),
             Text('Pemrograman Mobile — Minggu 1'),
           ]),
         ),
