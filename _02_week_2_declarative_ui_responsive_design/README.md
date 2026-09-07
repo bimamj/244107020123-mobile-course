@@ -61,3 +61,10 @@ Terminal
 ### 3. AI audit. "Check again the above layout recommendation, is it still responsive under 600px, does it reduce accessability, and are there any widget that is not available in the current Flutter stable build?"
 
 Partially, but it contains a critical flaw. The code I provided earlier used GridView.count with a fixed `childAspectRatio`: 3.0. While it successfully drops to 1 column under 600px, the fixed aspect ratio locks the card's height mathematically to its width. On very narrow screens (like an iPhone SE), the card becomes extremely short. If the text wraps to a second line, it will trigger a yellow-and-black overflow error because the card is not allowed to expand vertically. Every widget used in the provided code (LayoutBuilder, Semantics, ExcludeSemantics, CupertinoSwitch, GridView, Expanded, etc.) is fully available and foundational in the current Flutter stable build.
+
+## Refactoring Challange
+
+![Refactored](screenshots/image14.png) 
+
+Flutter Analyze
+![Flutter Analyze](screenshots/image15.png) 

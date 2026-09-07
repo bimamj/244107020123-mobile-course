@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+const double kWideBreakpoint = 700.0;
+
 void main() => runApp(const AcademicApp());
 
 class AcademicApp extends StatefulWidget {
@@ -17,7 +19,11 @@ class _AcademicAppState extends State<AcademicApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+      theme: ThemeData(
+        useMaterial3: true, 
+        colorSchemeSeed: Colors.blue,
+        brightness: Brightness.light,
+      ),
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
@@ -44,6 +50,8 @@ class AcademicOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Academic Overview'),
@@ -77,14 +85,19 @@ class AcademicOverviewPage extends StatelessWidget {
               margin: const EdgeInsets.all(16.0),
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: theme.colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30,
-                    child: Icon(Icons.person, size: 30),
+                    backgroundColor: theme.colorScheme.onPrimary,
+                    child: Icon(
+                      Icons.person, 
+                      size: 30, 
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -93,13 +106,24 @@ class AcademicOverviewPage extends StatelessWidget {
                       children: [
                         Text(
                           'Muh Bima J',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.onPrimaryContainer,
+                          ),
                         ),
                         const SizedBox(height: 4),
-                        const Text('NIM: 244107020XXX'),
-                        const Text('Informatics Engineering Major'),
+                        Text(
+                          'NIM: 244107020XXX',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onPrimaryContainer,
+                          ),
+                        ),
+                        Text(
+                          'Informatics Engineering Major',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onPrimaryContainer,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -108,12 +132,12 @@ class AcademicOverviewPage extends StatelessWidget {
             ),
           ),
           
-          // GRID KARTU INFORMASI (Responsive Layout)
+          // info card grid
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                // Breakpoint: 1 kolom jika < 600, 2 kolom jika >= 600
-                final columns = constraints.maxWidth >= 600 ? 2 : 1;
+                // Menggunakan konstanta global kWideBreakpoint
+                final columns = constraints.maxWidth >= kWideBreakpoint ? 2 : 1;
                 
                 return GridView.count(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -137,24 +161,33 @@ class AcademicOverviewPage extends StatelessWidget {
   }
 }
 
+// reusable component
 class InfoCard extends StatelessWidget {
-  const InfoCard({required this.title, required this.value, super.key});
+  const InfoCard({
+    required this.title, 
+    required this.value, 
+    super.key,
+  });
+  
   final String title;
   final String value;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Semantics(
       label: '$title: $value',
       container: true,
       excludeSemantics: true,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          color: theme.cardColor,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              // changes the shadow color to a lighter shade for better visibility in dark mode
+              color: theme.shadowColor.withValues(alpha: 0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -167,15 +200,17 @@ class InfoCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: theme.colorScheme.onSurface,
+                  ),
                 ),
               ),
               Text(
                 value,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
               ),
             ],
           ),
