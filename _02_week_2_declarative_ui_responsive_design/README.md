@@ -1,6 +1,14 @@
 
 # Week 02 | Declarative UI & Responsive Design
 
+## Checklist
+- [x] `flutter analyze` produces no errors.
+- [x] `flutter test` passes all responsive widget tests.
+- [x] The application runs at narrow and wide screen sizes.
+- [x] Dark mode has sufficient contrast and readable text.
+- [x] The widget structure can be explained during code review.
+- [x] Screenshots, the `test/` folder, and `README.md` are stored in the Week 2 assignment folder.
+
 ## Simple Profile
 
 Result
@@ -68,3 +76,8 @@ Partially, but it contains a critical flaw. The code I provided earlier used Gri
 
 Flutter Analyze
 ![Flutter Analyze](screenshots/image15.png) 
+
+## Flutter Test
+
+![Flutter Test](screenshots/image16.png) 
+
