@@ -1,6 +1,7 @@
 
 # Week 02 | Declarative UI & Responsive Design
 
+---
 ## Checklist
 - [x] `flutter analyze` produces no errors.
 - [x] `flutter test` passes all responsive widget tests.
@@ -8,6 +9,7 @@
 - [x] Dark mode has sufficient contrast and readable text.
 - [x] The widget structure can be explained during code review.
 - [x] Screenshots, the `test/` folder, and `README.md` are stored in the Week 2 assignment folder.
+---
 
 ## Simple Profile
 
@@ -23,19 +25,19 @@ Result
 
 ## Layout Experiment
 
-1. Change breakpoint from 700 to other value and observe the change
+### 1. Change breakpoint from 700 to other value and observe the change
 - Breakpoint 700 in Ipad air ![Breakpoint 700 ipad air](screenshots/image7.png)
 - Breakpoint 900 in Ipad air ![Breakpoint 900 ipad air](screenshots/image8.png) when we increase the breakpoint from 700 to 900 on larger display in this example ipad air, it will stay at 1 column for much longer until we change it to much larger display, then it will turn to 2 column, and it will work on reverse if we change the breakpoint smaller
 
-2. Change themeMode to ThemeMode.dark, and to themeMode.system
+### 2. Change themeMode to ThemeMode.dark, and to themeMode.system
 - ![Darkmode](screenshots/image9.png) 
 - ![System](screenshots/image9.png) in this device, since the system is set to dark, so there are no difference between dark and system theme
 
-3. Test your app with different emulator screen size
+### 3. Test your app with different emulator screen size
 - Iphone 12 pro size (390x844) ![Stateful IP light](screenshots/image5.png)
 - Ipad air (820x1180) ![Stateful IP AIR light](screenshots/image7.png)
 
-4. Add semantics or label that is important in screen reader
+### 4. Add semantics or label that is important in screen reader
 - I added semantics label `Togle dark mode` 
 
 ## Main Task
@@ -81,3 +83,24 @@ Flutter Analyze
 
 ![Flutter Test](screenshots/image16.png) 
 
+## Reflections 
+
+### 1. What's the differenece between Imperative and declarative thinking when creating UI? 
+- Imperative: You give step-by-step instructions to manipulate UI elements manually (e.g., finding a view by ID and calling setText("Updated")). You must explicitly manage how the state transitions and update components every time data changes.
+
+- Declarative: You describe what the UI should look like for a given state (e.g., returning a Text widget displaying the current variable). When the state changes, the framework automatically computes and handles how to redraw the UI to match.
+
+### 2. When does `expanded` help and when does it create layout error? 
+- Helps: Inside bounded flex containers like `Row`, `Column`, or `Flex`. It forces a child widget to stretch and consume all remaining available space along the main axis.
+
+- Causes Errors: When placed inside an unbounded container (such as a `SingleChildScrollView` or a horizontal `Row` nested within a horizontal scroll view). Because scrolling provides infinite space, Expanded cannot calculate the "remaining space," leading to a layout crash
+
+### 3. How does breakpoint and theme influence user experience? 
+- Breakpoints: Dictate how an app adapts to different screen sizes. By defining size thresholds, breakpoints allow layouts to transition dynamically, such as shifting from a single column layout on narrow mobile screens to a multi-column grid on wide tablet or desktop displays, preventing clipping and improving information density.
+
+- Themes: Directly impact visual comfort and inclusivity. Providing proper light and dark mode support, contrast ratios, and color scheme seeds ensures the UI remains readable in varied lighting environments and aligns with the user's system preferences.
+
+### 4. What did you verified from the AI recommendation after you did the main assignment? 
+- Responsiveness: Verified layout behavior above and below breakpoints (< 600px vs ≥ 600px).
+- Accessibility: Checked for font scale overflows (up to 200% zoom) and eliminated duplicate screen-reader semantics.
+- Code Integrity: Ran flutter analyze and widget tests to confirm zero errors or layout assertion warnings.
