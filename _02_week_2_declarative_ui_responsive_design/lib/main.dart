@@ -65,3 +65,32 @@ class ProfileCard extends StatelessWidget {
     );
   }
 }
+
+//failed expanded app test
+class FailedExpandedApp extends StatelessWidget {
+  const FailedExpandedApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Expanded Error Test')),
+        // This is where the failed code goes
+        body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal, 
+          child: Row(
+            children: [
+              const Icon(Icons.info),
+              Expanded( 
+                // ERROR: This crashes the app because it tries 
+                // to expand into infinite horizontal space.
+                child: const Text('This text will crash the layout.'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
