@@ -29,3 +29,14 @@ Result
 
 4. Add semantics or label that is important in screen reader
 - I added semantics label `Togle dark mode` 
+
+## Main Task
+
+Narrow View
+![Academic Overview Narrow](screenshots/image10.png) 
+
+Wide View
+![Academic Overview Wide](screenshots/image11.png) 
+
+
+## AI Challange
