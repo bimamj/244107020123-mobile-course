@@ -8,20 +8,20 @@
 ## Lab 3: Cache-first and the sync queue
 
 ### Lightmode
-![images](screenshots/img1.png)
+![images](screenshots/img1.jpeg)
 
 ### Darkmode
-![images](screenshots/img2.png)
+![images](screenshots/img2.jpeg)
 
 ### Last Seen
-![images](screenshots/img3.png)
+![images](screenshots/img3.jpeg)
 
 ### Image add and synchonize
-![images](screenshots/img4.png)
-![images](screenshots/img5.png)
+![images](screenshots/img4.jpeg)
+![images](screenshots/img5.jpeg)
 
 ### Detail Note
-![images](screenshots/img6.png)
+![images](screenshots/img6.jpeg)
 
 ## Reflections
 1. Why not SharedPreferences for notes?
