@@ -15,7 +15,7 @@ import 'package:campus_notify/features/chat_assistant/domain/usecases/get_daily_
 import 'package:campus_notify/features/chat_assistant/domain/usecases/send_chat_message.dart';
 
 const kDefaultAiApiKey =
-    'REDACTED';
+    'API_KEY_HERE'; 
 
 // --- Data layer providers ---
 final chatLocalDataSourceProvider = Provider<ChatLocalDataSource>((ref) {
