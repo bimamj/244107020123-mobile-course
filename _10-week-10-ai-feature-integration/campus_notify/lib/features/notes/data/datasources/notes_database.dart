@@ -1,0 +1,35 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:path/path.dart' as p;
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
+const notesTable = 'notes';
+
+Future<Database>? _db;
+
+Future<Database> openNotesDb() {
+  return _db ??= _open();
+}
+
+Future<Database> _open() async {
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+  final dir = await getDatabasesPath();
+  return openDatabase(
+    p.join(dir, 'campus_notify.db'),
+    version: 1,
+    onCreate: (db, version) async {
+      await db.execute('''
+        CREATE TABLE $notesTable (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          body TEXT NOT NULL DEFAULT '',
+          updated_at TEXT NOT NULL,
+          dirty INTEGER NOT NULL DEFAULT 0
+        )
+      ''');
+    },
+  );
+}
