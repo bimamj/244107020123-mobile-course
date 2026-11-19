@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1013044070469",
+    "project_id": "week9mobile-e818a",
+    "storage_bucket": "week9mobile-e818a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013044070469:android:1e696a02ba1ed449a47b2c",
+        "android_client_info": {
+          "package_name": "com.example.campus_notify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy5pbhDIE_5HygX0NeHslu_W6ExQF7ZJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
