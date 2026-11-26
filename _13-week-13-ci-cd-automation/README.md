@@ -51,9 +51,9 @@ All CI checks were verified locally inside `_12-week-12-testing-quality-assuranc
 - **Branch**: `main`
 - **Commit / Actions Run**:
   - Push these changes to `main` (or open a pull request targeting `main`) to trigger `Flutter CI` on GitHub Actions.
-  - Record the resulting commit SHA and GitHub Actions run URL here after pushing:
-    - Commit SHA: `<pending push>`
-    - Workflow Run URL: `https://github.com/bimamj/244107020123-mobile-course/actions`
+  - Initial CI commit: `7dd0117` (`JS 13 CICD`)
+  - Note: Initial GitHub Actions run detected an SDK version drift (`flutter analyze --fatal-infos` failed on newer `stable` due to `package:flutter/material.dart` deprecation after `v3.47.0-0.0.pre`); fixed by pinning `flutter-version: '3.47.2'` in `.github/workflows/flutter-ci.yml`.
+  - Workflow Run URL: `https://github.com/bimamj/244107020123-mobile-course/actions`
 
 ---
 
@@ -70,6 +70,7 @@ All CI checks were verified locally inside `_12-week-12-testing-quality-assuranc
 ## 5. Reflection
 
 ### What problem was detected automatically before changes were merged?
+- **Flutter SDK version drift in CI**: On the initial GitHub Actions run (`channel: stable` unpinned), `flutter analyze --fatal-infos` failed with 15 `deprecated_member_use` infos (`'package:flutter/material.dart' is deprecated... after v3.47.0-0.0.pre`), even though local `Flutter 3.47.2` passed. Pinning `flutter-version: '3.47.2'` in `.github/workflows/flutter-ci.yml` resolved the mismatch.
 - **Formatting inconsistencies across 51 files**: Running `dart format --output=none --set-exit-if-changed` immediately flagged 51 out of 67 Dart files in `lib/`, `test/`, and `integration_test/` that did not conform to `dart format`.
 - **Lint violation exposed after formatting**: Once `dart format` reformatted the code, `flutter analyze --fatal-infos` detected a `curly_braces_in_flow_control_structures` info-level issue at `test/features/notes/notes_usecases_test.dart:17:7`, which was fixed before proceeding.
 - **Misconfigured workflow root & missing build/artifact steps**: The initial `.github/workflows/flutter-ci.yml` lacked `working-directory: _12-week-12-testing-quality-assurance/campus_notify`, Java 17 setup, release APK/AAB builds, and `actions/upload-artifact@v4`.
