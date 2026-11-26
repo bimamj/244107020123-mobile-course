@@ -46,6 +46,10 @@ All CI checks were verified locally inside `_12-week-12-testing-quality-assuranc
 | **Release APK Build** | `flutter build apk --release` | Passed (`build\app\outputs\flutter-apk\app-release.apk`, `56.8MB`) |
 | **Release AAB Build** | `flutter build appbundle --release` | Passed (`build\app\outputs\bundle\release\app-release.aab`, `56.0MB`) |
 
+![Screenshots](screenshots/image.png)
+
+![Screenshots](screenshots/image2.png)
+
 ### Git & GitHub Actions Run Evidence
 - **Repository**: `https://github.com/bimamj/244107020123-mobile-course`
 - **Branch**: `main`
