@@ -25,7 +25,8 @@ final addNoteProvider = Provider<AddNote>((ref) {
 // Presentation layer: state for the UI
 final notesSearchQueryProvider =
     NotifierProvider<NotesSearchQueryNotifier, String>(
-        NotesSearchQueryNotifier.new);
+      NotesSearchQueryNotifier.new,
+    );
 
 class NotesSearchQueryNotifier extends Notifier<String> {
   @override
@@ -36,15 +37,20 @@ class NotesSearchQueryNotifier extends Notifier<String> {
 
 final filteredNotesProvider = Provider<AsyncValue<List<Note>>>((ref) {
   final query = ref.watch(notesSearchQueryProvider).trim().toLowerCase();
-  return ref.watch(notesProvider).whenData(
+  return ref
+      .watch(notesProvider)
+      .whenData(
         (notes) => query.isEmpty
             ? notes
-            : notes.where((n) => n.title.toLowerCase().contains(query)).toList(),
+            : notes
+                  .where((n) => n.title.toLowerCase().contains(query))
+                  .toList(),
       );
 });
 
-final notesProvider =
-    AsyncNotifierProvider<NotesNotifier, List<Note>>(NotesNotifier.new);
+final notesProvider = AsyncNotifierProvider<NotesNotifier, List<Note>>(
+  NotesNotifier.new,
+);
 
 class NotesNotifier extends AsyncNotifier<List<Note>> {
   @override
@@ -57,8 +63,9 @@ class NotesNotifier extends AsyncNotifier<List<Note>> {
 
   /// Returns a [Failure] for the UI to display, or `null` on success.
   Future<Failure?> add({required String title, String body = ''}) async {
-    final result =
-        await ref.read(addNoteProvider).call(title: title, body: body);
+    final result = await ref
+        .read(addNoteProvider)
+        .call(title: title, body: body);
     final note = result.note;
     if (result.failure != null || note == null) {
       return result.failure ?? const LocalFailure('Unknown error');

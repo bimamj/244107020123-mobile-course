@@ -13,11 +13,14 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
     this.aiKeyStorage,
     this.apiKey,
     this.baseUrl = 'https://generativelanguage.googleapis.com/v1beta',
-  }) : _client = client ??
-            Dio(BaseOptions(
-              connectTimeout: const Duration(seconds: 15),
-              receiveTimeout: const Duration(seconds: 45),
-            ));
+  }) : _client =
+           client ??
+           Dio(
+             BaseOptions(
+               connectTimeout: const Duration(seconds: 15),
+               receiveTimeout: const Duration(seconds: 45),
+             ),
+           );
 
   /// Dedicated client: must NOT be the app's campus API client, otherwise the
   /// user's campus session token would be attached to requests sent to Google.
@@ -52,10 +55,9 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
     return null;
   }
 
-  Options _headers(String key) => Options(headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': key,
-      });
+  Options _headers(String key) => Options(
+    headers: {'Content-Type': 'application/json', 'x-goog-api-key': key},
+  );
 
   @override
   Future<String> askAI(String prompt) async {
@@ -81,7 +83,9 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
         return text;
       } on DioException catch (e) {
         if (e.response?.statusCode == 404) {
-          debugPrint('Gemini model $model not available for this key, trying next.');
+          debugPrint(
+            'Gemini model $model not available for this key, trying next.',
+          );
           lastNotFound = e;
           if (_resolvedModel == model) _resolvedModel = null;
           continue;
@@ -104,16 +108,16 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
       data: {
         'systemInstruction': {
           'parts': [
-            {'text': _systemPrompt}
-          ]
+            {'text': _systemPrompt},
+          ],
         },
         'contents': [
           {
             'role': 'user',
             'parts': [
-              {'text': prompt}
-            ]
-          }
+              {'text': prompt},
+            ],
+          },
         ],
       },
     );
@@ -141,12 +145,12 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
       final models = (res.data['models'] as List?) ?? const [];
       final usable = <String>[
         for (final m in models)
-          if (((m['supportedGenerationMethods'] as List?) ?? const [])
-              .contains('generateContent'))
+          if (((m['supportedGenerationMethods'] as List?) ?? const []).contains(
+            'generateContent',
+          ))
             (m['name'] as String).replaceFirst('models/', ''),
       ];
-      final preferred =
-          _preferredModels.where(usable.contains).toList();
+      final preferred = _preferredModels.where(usable.contains).toList();
       final otherFlash = usable
           .where((m) => m.contains('flash') && !preferred.contains(m))
           .toList();
@@ -171,7 +175,9 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
     debugPrint('Gemini API error: status=$status, message=$message');
 
     if (status == 400 || status == 401 || status == 403) {
-      return AuthFailure('AI key problem ($status): ${message ?? "API key rejected."}');
+      return AuthFailure(
+        'AI key problem ($status): ${message ?? "API key rejected."}',
+      );
     }
     if (status == 429) {
       return const NetworkFailure(
@@ -196,7 +202,9 @@ class GeminiChatRemoteDataSource implements ChatRemoteDataSource {
     if (lower.contains('note') || lower.contains('catatan')) {
       return 'You can create, search, and manage your course notes locally in the "My Notes" section. All notes are saved on your device using SQLite.';
     }
-    if (lower.contains('exam') || lower.contains('jadwal') || lower.contains('schedule')) {
+    if (lower.contains('exam') ||
+        lower.contains('jadwal') ||
+        lower.contains('schedule')) {
       return 'Midterm and final exam schedules are published through official faculty announcements. Be sure to check the announcement details regularly.';
     }
     if (lower.contains('wifi') || lower.contains('internet')) {

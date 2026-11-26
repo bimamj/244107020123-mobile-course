@@ -8,7 +8,7 @@ abstract interface class AiKeyStorage {
 
 class SecureAiKeyStorage implements AiKeyStorage {
   SecureAiKeyStorage({FlutterSecureStorage? storage})
-      : _storage = storage ?? const FlutterSecureStorage();
+    : _storage = storage ?? const FlutterSecureStorage();
 
   final FlutterSecureStorage _storage;
   static const _key = 'ai_api_key';

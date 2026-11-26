@@ -62,7 +62,9 @@ void main() {
     expect(find.text('How do I check announcements?'), findsOneWidget);
   });
 
-  testWidgets('renders user and AI messages and handles cached indicator', (tester) async {
+  testWidgets('renders user and AI messages and handles cached indicator', (
+    tester,
+  ) async {
     final messages = [
       ChatMessage(
         id: '1',
@@ -83,11 +85,16 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Where are notes saved?'), findsOneWidget);
-    expect(find.text('Notes are saved locally on your phone in SQLite.'), findsOneWidget);
+    expect(
+      find.text('Notes are saved locally on your phone in SQLite.'),
+      findsOneWidget,
+    );
     expect(find.text('From cache'), findsOneWidget);
   });
 
-  testWidgets('renders retry button when message status is failed', (tester) async {
+  testWidgets('renders retry button when message status is failed', (
+    tester,
+  ) async {
     final messages = [
       ChatMessage(
         id: '1',

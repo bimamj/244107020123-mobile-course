@@ -3,7 +3,6 @@ typedef RouteNavigator = void Function(String route);
 abstract interface class PushNotificationService {
   void registerBackgroundHandler();
 
-
   Future<void> initialize({
     required Future<void> Function(String token) onToken,
   });

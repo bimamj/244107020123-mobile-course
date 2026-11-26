@@ -12,7 +12,9 @@ class SensitiveDataFilter {
   );
 
   static final _tokenPattern = RegExp(
-    r'(bearer\s+[A-Za-z0-9\-._~+/]+=*|token\s*[:=]\s*["'']?[A-Za-z0-9_-]{16,}["'']?)',
+    r'(bearer\s+[A-Za-z0-9\-._~+/]+=*|token\s*[:=]\s*["'
+    ']?[A-Za-z0-9_-]{16,}["'
+    ']?)',
     caseSensitive: false,
   );
 
@@ -29,9 +31,7 @@ class SensitiveDataFilter {
     r'(\+?[0-9]{1,3}[-.\s]?)?\(?[0-9]{3,4}\)?[-.\s]?[0-9]{3,4}[-.\s]?[0-9]{4,}',
   );
 
-  static final _creditCardPattern = RegExp(
-    r'\b(?:\d{4}[ -]?){3}\d{4}\b',
-  );
+  static final _creditCardPattern = RegExp(r'\b(?:\d{4}[ -]?){3}\d{4}\b');
 
   /// Checks whether the text contains critical credentials or secret keys.
   bool containsSecrets(String input) {

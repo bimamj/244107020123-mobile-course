@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChatInputBar extends StatefulWidget {
-  const ChatInputBar({
-    super.key,
-    required this.onSend,
-    this.isLoading = false,
-  });
+  const ChatInputBar({super.key, required this.onSend, this.isLoading = false});
 
   final ValueChanged<String> onSend;
   final bool isLoading;
@@ -77,11 +73,17 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 maxLines: 4,
                 decoration: InputDecoration(
                   hintText: 'Ask about campus announcements, notes...',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade500),
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey.shade500,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   filled: true,
-                  fillColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                  fillColor: theme.colorScheme.surfaceContainerHighest
+                      .withValues(alpha: 0.5),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
                     borderSide: BorderSide.none,

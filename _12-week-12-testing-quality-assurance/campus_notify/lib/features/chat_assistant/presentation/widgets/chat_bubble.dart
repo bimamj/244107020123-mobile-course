@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:campus_notify/features/chat_assistant/domain/entities/chat_message.dart';
 
 class ChatBubble extends StatelessWidget {
-  const ChatBubble({
-    super.key,
-    required this.message,
-    this.onRetry,
-  });
+  const ChatBubble({super.key, required this.message, this.onRetry});
 
   final ChatMessage message;
   final VoidCallback? onRetry;
@@ -20,8 +16,9 @@ class ChatBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Row(
-        mainAxisAlignment:
-            isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!isUser) ...[
@@ -47,8 +44,8 @@ class ChatBubble extends StatelessWidget {
                 color: isUser
                     ? theme.colorScheme.primary
                     : isFailed
-                        ? Colors.red.shade50
-                        : theme.colorScheme.surfaceContainerHighest,
+                    ? Colors.red.shade50
+                    : theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(16),
                   topRight: const Radius.circular(16),
@@ -60,8 +57,9 @@ class ChatBubble extends StatelessWidget {
                     : null,
               ),
               child: Column(
-                crossAxisAlignment:
-                    isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                crossAxisAlignment: isUser
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: [
                   Text(
                     message.text,
@@ -69,8 +67,8 @@ class ChatBubble extends StatelessWidget {
                       color: isUser
                           ? theme.colorScheme.onPrimary
                           : isFailed
-                              ? Colors.red.shade900
-                              : theme.colorScheme.onSurface,
+                          ? Colors.red.shade900
+                          : theme.colorScheme.onSurface,
                       fontSize: 14.5,
                       height: 1.35,
                     ),
@@ -84,7 +82,9 @@ class ChatBubble extends StatelessWidget {
                           Icons.bolt,
                           size: 13,
                           color: isUser
-                              ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
+                              ? theme.colorScheme.onPrimary.withValues(
+                                  alpha: 0.7,
+                                )
                               : Colors.amber.shade800,
                         ),
                         const SizedBox(width: 2),
@@ -94,7 +94,9 @@ class ChatBubble extends StatelessWidget {
                             fontSize: 11,
                             fontWeight: FontWeight.w500,
                             color: isUser
-                                ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
+                                ? theme.colorScheme.onPrimary.withValues(
+                                    alpha: 0.7,
+                                  )
                                 : Colors.amber.shade900,
                           ),
                         ),
@@ -106,8 +108,11 @@ class ChatBubble extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.refresh,
-                                  size: 14, color: Colors.red.shade700),
+                              Icon(
+                                Icons.refresh,
+                                size: 14,
+                                color: Colors.red.shade700,
+                              ),
                               const SizedBox(width: 2),
                               Text(
                                 'Tap to retry',
@@ -131,7 +136,9 @@ class ChatBubble extends StatelessWidget {
             const SizedBox(width: 8),
             CircleAvatar(
               radius: 16,
-              backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
+              backgroundColor: theme.colorScheme.primary.withValues(
+                alpha: 0.15,
+              ),
               child: Icon(
                 Icons.person,
                 size: 18,

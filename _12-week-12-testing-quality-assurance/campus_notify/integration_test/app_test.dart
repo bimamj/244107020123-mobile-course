@@ -63,18 +63,22 @@ class _InMemoryNoteRepository implements NoteRepository {
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('user logs in, navigates to notes, adds and searches a note', (tester) async {
+  testWidgets('user logs in, navigates to notes, adds and searches a note', (
+    tester,
+  ) async {
     final tokenStorage = _InMemoryTokenStorage();
     final noteRepo = _InMemoryNoteRepository();
 
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          pushNotificationServiceProvider
-              .overrideWithValue(const NoopPushNotificationService()),
+          pushNotificationServiceProvider.overrideWithValue(
+            const NoopPushNotificationService(),
+          ),
           tokenStorageProvider.overrideWithValue(tokenStorage),
-          tokenRefresherProvider
-              .overrideWith((ref) => ref.watch(authRemoteDataSourceProvider)),
+          tokenRefresherProvider.overrideWith(
+            (ref) => ref.watch(authRemoteDataSourceProvider),
+          ),
           noteRepositoryProvider.overrideWithValue(noteRepo),
         ],
         child: const MyApp(),
@@ -117,10 +121,16 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Week 12 QA Lab'), findsOneWidget);
-    expect(find.text('Complete unit, widget, and integration tests'), findsOneWidget);
+    expect(
+      find.text('Complete unit, widget, and integration tests'),
+      findsOneWidget,
+    );
 
     // 4. Filter notes with search
-    await tester.enterText(find.byKey(const Key('notes_search_field')), 'Week 12');
+    await tester.enterText(
+      find.byKey(const Key('notes_search_field')),
+      'Week 12',
+    );
     await tester.pumpAndSettle();
     expect(find.text('Week 12 QA Lab'), findsOneWidget);
   });

@@ -28,7 +28,10 @@ class FakeNoteRepository implements NoteRepository {
       await fetchCompleter!.future;
     }
     if (failFetch) {
-      return (notes: const <Note>[], failure: const LocalFailure('Failed to load notes'));
+      return (
+        notes: const <Note>[],
+        failure: const LocalFailure('Failed to load notes'),
+      );
     }
     return (notes: List<Note>.of(_notes), failure: null);
   }
@@ -56,15 +59,15 @@ class FakeNoteRepository implements NoteRepository {
 void main() {
   Widget buildSubject(NoteRepository repository) {
     return ProviderScope(
-      overrides: [
-        noteRepositoryProvider.overrideWithValue(repository),
-      ],
+      overrides: [noteRepositoryProvider.overrideWithValue(repository)],
       child: const MaterialApp(home: NotesPage()),
     );
   }
 
   group('NotesPage', () {
-    testWidgets('displays initial title, search field, FAB, and empty state', (tester) async {
+    testWidgets('displays initial title, search field, FAB, and empty state', (
+      tester,
+    ) async {
       final repo = FakeNoteRepository();
       await tester.pumpWidget(buildSubject(repo));
       await tester.pumpAndSettle();
@@ -94,7 +97,12 @@ void main() {
     testWidgets('shows error view and retries successfully', (tester) async {
       final repo = FakeNoteRepository(
         initialNotes: [
-          Note(id: 1, title: 'Exam Prep', body: 'Week 12', updatedAt: DateTime(2026)),
+          Note(
+            id: 1,
+            title: 'Exam Prep',
+            body: 'Week 12',
+            updatedAt: DateTime(2026),
+          ),
         ],
         failFetch: true,
       );
@@ -112,7 +120,9 @@ void main() {
       expect(find.text('Exam Prep'), findsOneWidget);
     });
 
-    testWidgets('adds a new note through the dialog and displays it', (tester) async {
+    testWidgets('adds a new note through the dialog and displays it', (
+      tester,
+    ) async {
       final repo = FakeNoteRepository();
       await tester.pumpWidget(buildSubject(repo));
       await tester.pumpAndSettle();
@@ -122,8 +132,14 @@ void main() {
 
       expect(find.text('New Note'), findsOneWidget);
 
-      await tester.enterText(find.byKey(const Key('note_title_field')), 'Read Testing Docs');
-      await tester.enterText(find.byKey(const Key('note_body_field')), 'Unit, widget, integration');
+      await tester.enterText(
+        find.byKey(const Key('note_title_field')),
+        'Read Testing Docs',
+      );
+      await tester.enterText(
+        find.byKey(const Key('note_body_field')),
+        'Unit, widget, integration',
+      );
       await tester.tap(find.byKey(const Key('save_note_button')));
       await tester.pumpAndSettle();
 
@@ -131,7 +147,9 @@ void main() {
       expect(find.text('Unit, widget, integration'), findsOneWidget);
     });
 
-    testWidgets('shows validation SnackBar when submitting an empty title', (tester) async {
+    testWidgets('shows validation SnackBar when submitting an empty title', (
+      tester,
+    ) async {
       final repo = FakeNoteRepository();
       await tester.pumpWidget(buildSubject(repo));
       await tester.pumpAndSettle();
@@ -147,7 +165,9 @@ void main() {
       expect(find.text('No notes yet.'), findsOneWidget);
     });
 
-    testWidgets('shows error SnackBar when repository fails to save note', (tester) async {
+    testWidgets('shows error SnackBar when repository fails to save note', (
+      tester,
+    ) async {
       final repo = FakeNoteRepository(failAdd: true);
       await tester.pumpWidget(buildSubject(repo));
       await tester.pumpAndSettle();
@@ -155,7 +175,10 @@ void main() {
       await tester.tap(find.byKey(const Key('add_note_fab')));
       await tester.pumpAndSettle();
 
-      await tester.enterText(find.byKey(const Key('note_title_field')), 'Valid Title');
+      await tester.enterText(
+        find.byKey(const Key('note_title_field')),
+        'Valid Title',
+      );
       await tester.tap(find.byKey(const Key('save_note_button')));
       await tester.pumpAndSettle();
 

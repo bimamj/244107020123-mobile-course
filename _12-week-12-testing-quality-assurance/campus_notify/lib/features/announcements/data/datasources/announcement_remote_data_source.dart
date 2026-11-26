@@ -14,7 +14,8 @@ class MockAnnouncementRemoteDataSource implements AnnouncementRemoteDataSource {
       id: '100${index + 1}',
       title: 'Important Announcement #${index + 1}',
       summary: 'Tap to view details...',
-      content: 'This is the detailed content for announcement #${index + 1}. '
+      content:
+          'This is the detailed content for announcement #${index + 1}. '
           'In a real app, this data is fetched from your API.',
     ),
   );

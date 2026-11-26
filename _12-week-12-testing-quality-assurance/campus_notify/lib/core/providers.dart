@@ -9,11 +9,13 @@ import 'storage/ai_key_storage.dart';
 import 'storage/token_storage.dart';
 
 /// Cross-feature providers. Every provider is typed by its ABSTRACTION,
-final tokenStorageProvider =
-    Provider<TokenStorage>((ref) => SecureTokenStorage());
+final tokenStorageProvider = Provider<TokenStorage>(
+  (ref) => SecureTokenStorage(),
+);
 
-final aiKeyStorageProvider =
-    Provider<AiKeyStorage>((ref) => SecureAiKeyStorage());
+final aiKeyStorageProvider = Provider<AiKeyStorage>(
+  (ref) => SecureAiKeyStorage(),
+);
 
 final tokenRefresherProvider = Provider<TokenRefresher>(
   (ref) => throw UnimplementedError(
@@ -28,5 +30,6 @@ final apiClientProvider = Provider<Dio>((ref) {
   );
 });
 
-final pushNotificationServiceProvider =
-    Provider<PushNotificationService>((ref) => FcmPushNotificationService());
+final pushNotificationServiceProvider = Provider<PushNotificationService>(
+  (ref) => FcmPushNotificationService(),
+);

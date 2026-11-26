@@ -11,7 +11,8 @@ import '../../domain/usecases/get_announcements.dart';
 // ---------- Data layer (DI) ----------
 final announcementRemoteDataSourceProvider =
     Provider<AnnouncementRemoteDataSource>(
-        (ref) => MockAnnouncementRemoteDataSource());
+      (ref) => MockAnnouncementRemoteDataSource(),
+    );
 
 final announcementRepositoryProvider = Provider<AnnouncementRepository>((ref) {
   return AnnouncementRepositoryImpl(
@@ -21,10 +22,12 @@ final announcementRepositoryProvider = Provider<AnnouncementRepository>((ref) {
 
 // ---------- Domain layer ----------
 final getAnnouncementsProvider = Provider<GetAnnouncements>(
-    (ref) => GetAnnouncements(ref.watch(announcementRepositoryProvider)));
+  (ref) => GetAnnouncements(ref.watch(announcementRepositoryProvider)),
+);
 
 final getAnnouncementDetailProvider = Provider<GetAnnouncementDetail>(
-    (ref) => GetAnnouncementDetail(ref.watch(announcementRepositoryProvider)));
+  (ref) => GetAnnouncementDetail(ref.watch(announcementRepositoryProvider)),
+);
 
 // ---------- Presentation layer ----------
 final announcementsProvider = FutureProvider<List<Announcement>>((ref) async {
@@ -34,8 +37,10 @@ final announcementsProvider = FutureProvider<List<Announcement>>((ref) async {
   return result.announcements;
 });
 
-final announcementDetailProvider =
-    FutureProvider.family<Announcement, String>((ref, id) async {
+final announcementDetailProvider = FutureProvider.family<Announcement, String>((
+  ref,
+  id,
+) async {
   final result = await ref.watch(getAnnouncementDetailProvider).call(id);
   final failure = result.failure;
   final announcement = result.announcement;

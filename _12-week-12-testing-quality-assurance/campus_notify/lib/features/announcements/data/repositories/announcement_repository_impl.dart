@@ -33,7 +33,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
 
   @override
   Future<({List<Announcement> announcements, Failure? failure})>
-      fetchAnnouncements({bool forceRefresh = false}) async {
+  fetchAnnouncements({bool forceRefresh = false}) async {
     // 1. Fresh cache hit: return immediately with 0 network latency
     if (!forceRefresh && _isListCacheValid) {
       return (
@@ -57,7 +57,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
   }
 
   Future<({List<Announcement> announcements, Failure? failure})>
-      _fetchFromRemoteAndCache() async {
+  _fetchFromRemoteAndCache() async {
     try {
       final items = await _remote.getAnnouncements();
       final entities = List<Announcement>.of(items);
@@ -102,10 +102,8 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
   }
 
   @override
-  Future<({Announcement? announcement, Failure? failure})> fetchAnnouncementById(
-    String id, {
-    bool forceRefresh = false,
-  }) async {
+  Future<({Announcement? announcement, Failure? failure})>
+  fetchAnnouncementById(String id, {bool forceRefresh = false}) async {
     if (!forceRefresh && _isDetailCacheValid(id)) {
       return (announcement: _cachedDetails[id], failure: null);
     }

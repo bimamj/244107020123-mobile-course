@@ -10,8 +10,8 @@ class ChatRepositoryImpl implements ChatRepository {
     required ChatLocalDataSource localDataSource,
     required ChatRemoteDataSource remoteDataSource,
     this.maxDailyRequests = 10,
-  })  : _local = localDataSource,
-        _remote = remoteDataSource;
+  }) : _local = localDataSource,
+       _remote = remoteDataSource;
 
   final ChatLocalDataSource _local;
   final ChatRemoteDataSource _remote;
@@ -47,7 +47,8 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<({ChatMessage? message, Failure? failure})> sendMessage(
-      String text) async {
+    String text,
+  ) async {
     final userMsgId = 'msg_${DateTime.now().millisecondsSinceEpoch}';
     final userMsg = ChatMessageModel(
       id: userMsgId,
@@ -63,7 +64,8 @@ class ChatRepositoryImpl implements ChatRepository {
   /// Produces the AI reply for [text] (cache -> quota -> remote API) and
   /// stores it. The user's question must already be saved.
   Future<({ChatMessage? message, Failure? failure})> _answer(
-      String text) async {
+    String text,
+  ) async {
     final normalizedKey = _normalizePrompt(text);
 
     // 1. Check local cache first
@@ -149,11 +151,15 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<({ChatMessage? message, Failure? failure})> retryMessage(
-      String messageId) async {
+    String messageId,
+  ) async {
     final history = await _local.getAllMessages();
     final failedIndex = history.indexWhere((m) => m.id == messageId);
     if (failedIndex < 0) {
-      return (message: null, failure: const NotFoundFailure('Message not found.'));
+      return (
+        message: null,
+        failure: const NotFoundFailure('Message not found.'),
+      );
     }
 
     // The question is the closest user message before the failed AI reply.
@@ -165,7 +171,10 @@ class ChatRepositoryImpl implements ChatRepository {
       }
     }
     if (question == null) {
-      return (message: null, failure: const NotFoundFailure('Original question not found.'));
+      return (
+        message: null,
+        failure: const NotFoundFailure('Original question not found.'),
+      );
     }
 
     // Remove the failed bubble, then ask again without duplicating the question.

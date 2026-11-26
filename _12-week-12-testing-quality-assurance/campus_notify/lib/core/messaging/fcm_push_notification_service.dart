@@ -5,9 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'push_notification_service.dart';
 
 @pragma('vm:entry-point')
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-
-}
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
 
 /// [PushNotificationService] implemented with Firebase Cloud Messaging
 
@@ -16,8 +14,8 @@ class FcmPushNotificationService implements PushNotificationService {
     FirebaseMessaging? messaging,
     FlutterLocalNotificationsPlugin? localNotifications,
     this.topic = 'pengumuman-kampus',
-  })  : _messagingOverride = messaging,
-        _local = localNotifications ?? FlutterLocalNotificationsPlugin();
+  }) : _messagingOverride = messaging,
+       _local = localNotifications ?? FlutterLocalNotificationsPlugin();
 
   final FirebaseMessaging? _messagingOverride;
   final FlutterLocalNotificationsPlugin _local;
@@ -73,8 +71,12 @@ class FcmPushNotificationService implements PushNotificationService {
     final messaging = _messaging;
     if (messaging == null) return false;
     final settings = await messaging.requestPermission(
-      alert: true, badge: true, sound: true,
-      announcement: false, carPlay: false, criticalAlert: false,
+      alert: true,
+      badge: true,
+      sound: true,
+      announcement: false,
+      carPlay: false,
+      criticalAlert: false,
     );
     return settings.authorizationStatus == AuthorizationStatus.authorized ||
         settings.authorizationStatus == AuthorizationStatus.provisional;
@@ -86,7 +88,6 @@ class FcmPushNotificationService implements PushNotificationService {
     await _local.initialize(
       settings: const InitializationSettings(android: android, iOS: ios),
       onDidReceiveNotificationResponse: (response) {
-
         final route = response.payload;
         if (route == null) return;
         final navigate = _navigate;
@@ -99,7 +100,9 @@ class FcmPushNotificationService implements PushNotificationService {
     );
   }
 
-  Future<void> _initFcmToken(Future<void> Function(String token) onToken) async {
+  Future<void> _initFcmToken(
+    Future<void> Function(String token) onToken,
+  ) async {
     final messaging = _messaging;
     if (messaging == null) return;
 
@@ -119,8 +122,10 @@ class FcmPushNotificationService implements PushNotificationService {
     FirebaseMessaging.onMessage.listen((message) async {
       final route = message.data['route'] ?? '/';
       const androidDetails = AndroidNotificationDetails(
-        'pengumuman', 'Pengumuman Kampus',
-        importance: Importance.high, priority: Priority.high,
+        'pengumuman',
+        'Pengumuman Kampus',
+        importance: Importance.high,
+        priority: Priority.high,
       );
       await _local.show(
         id: message.hashCode,
@@ -145,7 +150,7 @@ class FcmPushNotificationService implements PushNotificationService {
     final pending = _pendingDeepLink;
     if (pending != null) {
       _navigate?.call(pending);
-      _pendingDeepLink = null; 
+      _pendingDeepLink = null;
     }
   }
 }

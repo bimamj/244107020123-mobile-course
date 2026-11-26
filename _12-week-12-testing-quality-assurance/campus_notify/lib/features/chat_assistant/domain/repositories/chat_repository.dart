@@ -15,5 +15,7 @@ abstract interface class ChatRepository {
   Future<void> clearHistory();
 
   /// Retries sending a previously failed message.
-  Future<({ChatMessage? message, Failure? failure})> retryMessage(String messageId);
+  Future<({ChatMessage? message, Failure? failure})> retryMessage(
+    String messageId,
+  );
 }

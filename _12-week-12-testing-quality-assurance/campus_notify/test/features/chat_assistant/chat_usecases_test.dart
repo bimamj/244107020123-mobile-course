@@ -35,9 +35,9 @@ class FakeChatLocalDataSource implements ChatLocalDataSource {
   @override
   Future<ChatMessageModel?> getMessageById(String id) async {
     return _messages.cast<ChatMessageModel?>().firstWhere(
-          (m) => m?.id == id,
-          orElse: () => null,
-        );
+      (m) => m?.id == id,
+      orElse: () => null,
+    );
   }
 
   @override
@@ -144,7 +144,10 @@ void main() {
       // 3rd request should be blocked
       final blocked = await sendUseCase('Question 3');
       expect(blocked.failure, isA<ValidationFailure>());
-      expect(blocked.failure?.message, contains('Daily AI request limit reached'));
+      expect(
+        blocked.failure?.message,
+        contains('Daily AI request limit reached'),
+      );
       expect(remote.remoteCallCount, 2);
     });
   });
@@ -167,7 +170,9 @@ void main() {
       await sendUseCase('Can I retry?');
 
       final history = await repo.getMessages();
-      final failedAi = history.firstWhere((m) => m.status == MessageStatus.failed);
+      final failedAi = history.firstWhere(
+        (m) => m.status == MessageStatus.failed,
+      );
 
       // Fix network and retry
       remote.shouldThrowNetworkError = false;

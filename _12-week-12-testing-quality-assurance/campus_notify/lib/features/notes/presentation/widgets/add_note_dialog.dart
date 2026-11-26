@@ -55,9 +55,8 @@ class _AddNoteDialogState extends State<AddNoteDialog> {
         ),
         FilledButton(
           key: const Key('save_note_button'),
-          onPressed: () => Navigator.of(context).pop(
-            (title: _titleController.text, body: _bodyController.text),
-          ),
+          onPressed: () => Navigator.of(context)
+              .pop((title: _titleController.text, body: _bodyController.text)),
           child: const Text('Save'),
         ),
       ],

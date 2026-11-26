@@ -35,8 +35,9 @@ class _ChatPageState extends ConsumerState<ChatPage> {
     setState(() => _isSending = true);
     _scrollToBottom();
 
-    final failure =
-        await ref.read(chatMessagesProvider.notifier).sendMessage(text);
+    final failure = await ref
+        .read(chatMessagesProvider.notifier)
+        .sendMessage(text);
 
     if (mounted) {
       setState(() => _isSending = false);
@@ -65,8 +66,9 @@ class _ChatPageState extends ConsumerState<ChatPage> {
 
   Future<void> _handleRetry(ChatMessage msg) async {
     setState(() => _isSending = true);
-    final failure =
-        await ref.read(chatMessagesProvider.notifier).retryMessage(msg.id);
+    final failure = await ref
+        .read(chatMessagesProvider.notifier)
+        .retryMessage(msg.id);
 
     if (mounted) {
       setState(() => _isSending = false);
@@ -258,10 +260,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
 
           // Optimization: RepaintBoundary on active text input to isolate cursor repaints
           RepaintBoundary(
-            child: ChatInputBar(
-              onSend: _handleSend,
-              isLoading: _isSending,
-            ),
+            child: ChatInputBar(onSend: _handleSend, isLoading: _isSending),
           ),
         ],
       ),

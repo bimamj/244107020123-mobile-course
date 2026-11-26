@@ -28,23 +28,32 @@ Future<void> main() async {
     final fcmService = FcmPushNotificationService();
     fcmService.registerBackgroundHandler();
 
-    unawaited(fcmService.initialize(onToken: (token) async {
-      debugPrint('FCM Token berhasil didapat: $token');
-    }));
+    unawaited(
+      fcmService.initialize(
+        onToken: (token) async {
+          debugPrint('FCM Token berhasil didapat: $token');
+        },
+      ),
+    );
     pushService = fcmService;
   } catch (e) {
-    debugPrint('Firebase not available ($e). Falling back to NoopPushNotificationService.');
+    debugPrint(
+      'Firebase not available ($e). Falling back to NoopPushNotificationService.',
+    );
     pushService = const NoopPushNotificationService();
   }
 
-  runApp(ProviderScope(
-    overrides: [
-      pushNotificationServiceProvider.overrideWithValue(pushService),
-      tokenRefresherProvider
-          .overrideWith((ref) => ref.watch(authRemoteDataSourceProvider)),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(
+    ProviderScope(
+      overrides: [
+        pushNotificationServiceProvider.overrideWithValue(pushService),
+        tokenRefresherProvider.overrideWith(
+          (ref) => ref.watch(authRemoteDataSourceProvider),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerStatefulWidget {

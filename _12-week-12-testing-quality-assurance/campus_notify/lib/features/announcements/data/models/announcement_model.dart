@@ -18,9 +18,9 @@ class AnnouncementModel extends Announcement {
   }
 
   Map<String, Object?> toJson() => {
-        'id': id,
-        'title': title,
-        'summary': summary,
-        'content': content,
-      };
+    'id': id,
+    'title': title,
+    'summary': summary,
+    'content': content,
+  };
 }

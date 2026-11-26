@@ -26,7 +26,9 @@ class NotesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Optimization: Filter subscription with select so NotesPage does not rebuild on every keystroke
-    final isQueryEmpty = ref.watch(notesSearchQueryProvider.select((q) => q.trim().isEmpty));
+    final isQueryEmpty = ref.watch(
+      notesSearchQueryProvider.select((q) => q.trim().isEmpty),
+    );
     final state = ref.watch(filteredNotesProvider);
 
     return Scaffold(

@@ -13,7 +13,9 @@ class FakeNoteRepository implements NoteRepository {
 
   @override
   Future<({List<Note> notes, Failure? failure})> fetchNotes() async {
-    if (failNext) return (notes: const <Note>[], failure: const LocalFailure('db down'));
+    if (failNext) {
+      return (notes: const <Note>[], failure: const LocalFailure('db down'));
+    }
     return (notes: List<Note>.of(_notes), failure: null);
   }
 

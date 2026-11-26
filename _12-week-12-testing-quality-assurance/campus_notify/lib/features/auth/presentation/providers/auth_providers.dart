@@ -9,8 +9,9 @@ import '../../domain/usecases/login_user.dart';
 import '../../domain/usecases/logout_user.dart';
 
 // ---------- Data layer (DI) ----------
-final authRemoteDataSourceProvider =
-    Provider<AuthRemoteDataSource>((ref) => MockAuthRemoteDataSource());
+final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>(
+  (ref) => MockAuthRemoteDataSource(),
+);
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepositoryImpl(
@@ -20,18 +21,22 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 });
 
 // ---------- Domain layer: use cases receive the abstraction ----------
-final loginUserProvider =
-    Provider<LoginUser>((ref) => LoginUser(ref.watch(authRepositoryProvider)));
+final loginUserProvider = Provider<LoginUser>(
+  (ref) => LoginUser(ref.watch(authRepositoryProvider)),
+);
 
 final logoutUserProvider = Provider<LogoutUser>(
-    (ref) => LogoutUser(ref.watch(authRepositoryProvider)));
+  (ref) => LogoutUser(ref.watch(authRepositoryProvider)),
+);
 
 final checkAuthStatusProvider = Provider<CheckAuthStatus>(
-    (ref) => CheckAuthStatus(ref.watch(authRepositoryProvider)));
+  (ref) => CheckAuthStatus(ref.watch(authRepositoryProvider)),
+);
 
 // ---------- Presentation layer: UI state ----------
-final authStateProvider =
-    AsyncNotifierProvider<AuthNotifier, bool>(AuthNotifier.new);
+final authStateProvider = AsyncNotifierProvider<AuthNotifier, bool>(
+  AuthNotifier.new,
+);
 
 class AuthNotifier extends AsyncNotifier<bool> {
   @override

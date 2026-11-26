@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -54,9 +55,9 @@ class InMemoryChatLocalDataSource implements ChatLocalDataSource {
   @override
   Future<ChatMessageModel?> getMessageById(String id) async {
     return _messages.cast<ChatMessageModel?>().firstWhere(
-          (m) => m?.id == id,
-          orElse: () => null,
-        );
+      (m) => m?.id == id,
+      orElse: () => null,
+    );
   }
 
   @override
@@ -191,10 +192,7 @@ class SqfliteChatLocalDataSource implements ChatLocalDataSource {
   Future<List<ChatMessageModel>> getAllMessages() async {
     if (kIsWeb) return _inMemoryFallback.getAllMessages();
     final db = await _getDb();
-    final rows = await db.query(
-      messagesTable,
-      orderBy: 'timestamp ASC',
-    );
+    final rows = await db.query(messagesTable, orderBy: 'timestamp ASC');
     return rows.map(ChatMessageModel.fromMap).toList();
   }
 
@@ -234,16 +232,12 @@ class SqfliteChatLocalDataSource implements ChatLocalDataSource {
       );
     }
     final db = await _getDb();
-    await db.insert(
-      cacheTable,
-      {
-        'query_key': queryKey,
-        'prompt': prompt,
-        'response': response,
-        'created_at': DateTime.now().toIso8601String(),
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert(cacheTable, {
+      'query_key': queryKey,
+      'prompt': prompt,
+      'response': response,
+      'created_at': DateTime.now().toIso8601String(),
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   @override
@@ -265,10 +259,13 @@ class SqfliteChatLocalDataSource implements ChatLocalDataSource {
   Future<void> incrementTodayUsage(String dateKey) async {
     if (kIsWeb) return _inMemoryFallback.incrementTodayUsage(dateKey);
     final db = await _getDb();
-    await db.rawInsert('''
+    await db.rawInsert(
+      '''
       INSERT INTO $usageTable (usage_date, count)
       VALUES (?, 1)
       ON CONFLICT(usage_date) DO UPDATE SET count = count + 1
-    ''', [dateKey]);
+    ''',
+      [dateKey],
+    );
   }
 }

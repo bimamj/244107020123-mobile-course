@@ -3,7 +3,8 @@ import 'package:campus_notify/features/announcements/data/models/announcement_mo
 import 'package:campus_notify/features/announcements/data/repositories/announcement_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class CountingAnnouncementRemoteDataSource implements AnnouncementRemoteDataSource {
+class CountingAnnouncementRemoteDataSource
+    implements AnnouncementRemoteDataSource {
   int listCallCount = 0;
   int detailCallCount = 0;
   List<AnnouncementModel> items = [

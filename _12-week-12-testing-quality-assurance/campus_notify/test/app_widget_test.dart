@@ -22,11 +22,13 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          pushNotificationServiceProvider
-              .overrideWithValue(const NoopPushNotificationService()),
+          pushNotificationServiceProvider.overrideWithValue(
+            const NoopPushNotificationService(),
+          ),
           tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
           tokenRefresherProvider.overrideWith(
-              (ref) => ref.watch(authRemoteDataSourceProvider)),
+            (ref) => ref.watch(authRemoteDataSourceProvider),
+          ),
         ],
         child: const MyApp(),
       ),

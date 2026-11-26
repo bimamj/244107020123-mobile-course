@@ -19,7 +19,10 @@ class SendChatMessage {
     } on ValidationFailure catch (e) {
       return (message: null, failure: e);
     } catch (_) {
-      return (message: null, failure: const ValidationFailure('Invalid input.'));
+      return (
+        message: null,
+        failure: const ValidationFailure('Invalid input.'),
+      );
     }
 
     return _repository.sendMessage(sanitizedPrompt);

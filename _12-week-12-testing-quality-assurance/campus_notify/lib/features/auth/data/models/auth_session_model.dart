@@ -11,7 +11,7 @@ class AuthSessionModel extends AuthSession {
   }
 
   Map<String, Object?> toJson() => {
-        'access_token': access,
-        'refresh_token': refresh,
-      };
+    'access_token': access,
+    'refresh_token': refresh,
+  };
 }

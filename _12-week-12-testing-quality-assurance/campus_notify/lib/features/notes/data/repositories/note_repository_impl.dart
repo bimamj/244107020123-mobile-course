@@ -34,11 +34,21 @@ class NoteRepositoryImpl implements NoteRepository {
     try {
       final db = await _openDb();
       final now = DateTime.now();
-      final model =
-          NoteModel(title: title, body: body, updatedAt: now, dirty: true);
+      final model = NoteModel(
+        title: title,
+        body: body,
+        updatedAt: now,
+        dirty: true,
+      );
       final id = await db.insert(notesTable, model.toMap()..remove('id'));
       return (
-        note: Note(id: id, title: title, body: body, updatedAt: now, dirty: true),
+        note: Note(
+          id: id,
+          title: title,
+          body: body,
+          updatedAt: now,
+          dirty: true,
+        ),
         failure: null,
       );
     } catch (e) {

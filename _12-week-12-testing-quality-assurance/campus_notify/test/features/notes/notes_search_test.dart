@@ -15,15 +15,25 @@ class FakeNotesNotifier extends NotesNotifier {
 
 void main() {
   final sampleNotes = [
-    Note(id: 1, title: 'Flutter Riverpod', body: 'State mgmt', updatedAt: DateTime(2026), dirty: false),
-    Note(id: 2, title: 'SQLite Database', body: 'Offline cache', updatedAt: DateTime(2026), dirty: false),
+    Note(
+      id: 1,
+      title: 'Flutter Riverpod',
+      body: 'State mgmt',
+      updatedAt: DateTime(2026),
+      dirty: false,
+    ),
+    Note(
+      id: 2,
+      title: 'SQLite Database',
+      body: 'Offline cache',
+      updatedAt: DateTime(2026),
+      dirty: false,
+    ),
   ];
 
   Widget buildSubject({List<Note> notes = const []}) {
     return ProviderScope(
-      overrides: [
-        notesProvider.overrideWith(() => FakeNotesNotifier(notes)),
-      ],
+      overrides: [notesProvider.overrideWith(() => FakeNotesNotifier(notes))],
       child: const MaterialApp(home: NotesPage()),
     );
   }
@@ -35,18 +45,26 @@ void main() {
     expect(find.text('Flutter Riverpod'), findsOneWidget);
     expect(find.text('SQLite Database'), findsOneWidget);
 
-    await tester.enterText(find.byKey(const Key('notes_search_field')), 'riverpod');
+    await tester.enterText(
+      find.byKey(const Key('notes_search_field')),
+      'riverpod',
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Flutter Riverpod'), findsOneWidget);
     expect(find.text('SQLite Database'), findsNothing);
   });
 
-  testWidgets('shows empty search state when no notes match query', (tester) async {
+  testWidgets('shows empty search state when no notes match query', (
+    tester,
+  ) async {
     await tester.pumpWidget(buildSubject(notes: sampleNotes));
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.byKey(const Key('notes_search_field')), 'Unknown');
+    await tester.enterText(
+      find.byKey(const Key('notes_search_field')),
+      'Unknown',
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('No notes found.'), findsOneWidget);

@@ -21,8 +21,9 @@ abstract final class AppRoutes {
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final authListenable =
-      ValueNotifier<bool>(ref.read(authStateProvider).value ?? false);
+  final authListenable = ValueNotifier<bool>(
+    ref.read(authStateProvider).value ?? false,
+  );
 
   ref.listen<AsyncValue<bool>>(
     authStateProvider,

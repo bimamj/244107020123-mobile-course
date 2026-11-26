@@ -15,10 +15,7 @@ class NotesList extends StatelessWidget {
       separatorBuilder: (_, _) => const Divider(height: 1),
       itemBuilder: (context, index) {
         final note = notes[index];
-        return NoteListItem(
-          key: ValueKey(note.id),
-          note: note,
-        );
+        return NoteListItem(key: ValueKey(note.id), note: note);
       },
     );
   }

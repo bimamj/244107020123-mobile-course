@@ -15,13 +15,17 @@ class AddNote {
   }) async {
     final trimmedTitle = title.trim();
     if (trimmedTitle.isEmpty) {
-      return (note: null, failure: const ValidationFailure('Title is required'));
+      return (
+        note: null,
+        failure: const ValidationFailure('Title is required'),
+      );
     }
     if (trimmedTitle.length > maxTitleLength) {
       return (
         note: null,
         failure: const ValidationFailure(
-            'Title must be at most $maxTitleLength characters'),
+          'Title must be at most $maxTitleLength characters',
+        ),
       );
     }
     return _repository.addNote(title: trimmedTitle, body: body.trim());

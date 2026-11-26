@@ -23,10 +23,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submit() {
-    ref.read(authStateProvider.notifier).login(
-          _emailController.text,
-          _passwordController.text,
-        );
+    ref
+        .read(authStateProvider.notifier)
+        .login(_emailController.text, _passwordController.text);
   }
 
   @override

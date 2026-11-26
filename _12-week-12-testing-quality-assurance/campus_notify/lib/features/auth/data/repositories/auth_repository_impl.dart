@@ -17,7 +17,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       final session = await _remote.login(email: email, password: password);
-      await _tokenStorage.save(access: session.access, refresh: session.refresh);
+      await _tokenStorage.save(
+        access: session.access,
+        refresh: session.refresh,
+      );
       return (session: session, failure: null);
     } catch (e) {
       return (session: null, failure: AuthFailure('Login failed: $e'));

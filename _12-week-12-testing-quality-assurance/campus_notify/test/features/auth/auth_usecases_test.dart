@@ -46,8 +46,10 @@ void main() {
   });
 
   test('login -> status -> logout flow', () async {
-    final result =
-        await LoginUser(repo)(email: 'a@campus.ac.id', password: 'secret1');
+    final result = await LoginUser(repo)(
+      email: 'a@campus.ac.id',
+      password: 'secret1',
+    );
     expect(result.failure, isNull);
     expect(await CheckAuthStatus(repo)(), isTrue);
 

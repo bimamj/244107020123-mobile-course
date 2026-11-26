@@ -21,7 +21,11 @@ class AnnouncementPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.notifications_active, size: 80, color: Colors.blue),
+            const Icon(
+              Icons.notifications_active,
+              size: 80,
+              color: Colors.blue,
+            ),
             const SizedBox(height: 24),
             Text(
               'Announcement ID: $id',
@@ -34,7 +38,8 @@ class AnnouncementPage extends ConsumerWidget {
                 message: e is Failure ? e.message : '$e',
                 onRetry: () => ref.invalidate(announcementDetailProvider(id)),
               ),
-              data: (announcement) => AnnouncementDetailBody(announcement: announcement),
+              data: (announcement) =>
+                  AnnouncementDetailBody(announcement: announcement),
             ),
           ],
         ),

@@ -14,7 +14,7 @@ import 'package:campus_notify/features/chat_assistant/domain/usecases/get_chat_h
 import 'package:campus_notify/features/chat_assistant/domain/usecases/get_daily_quota.dart';
 import 'package:campus_notify/features/chat_assistant/domain/usecases/send_chat_message.dart';
 
-const kDefaultAiApiKey = 'API_KEY_HERE'; 
+const kDefaultAiApiKey = 'API_KEY_HERE';
 
 // --- Data layer providers ---
 final chatLocalDataSourceProvider = Provider<ChatLocalDataSource>((ref) {
@@ -85,8 +85,8 @@ class DailyQuotaNotifier extends AsyncNotifier<({int used, int max})> {
 
 final dailyQuotaProvider =
     AsyncNotifierProvider<DailyQuotaNotifier, ({int used, int max})>(
-  DailyQuotaNotifier.new,
-);
+      DailyQuotaNotifier.new,
+    );
 
 class ChatMessagesNotifier extends AsyncNotifier<List<ChatMessage>> {
   @override
@@ -140,7 +140,5 @@ class ChatMessagesNotifier extends AsyncNotifier<List<ChatMessage>> {
 
 final chatMessagesProvider =
     AsyncNotifierProvider<ChatMessagesNotifier, List<ChatMessage>>(
-  ChatMessagesNotifier.new,
-);
-
-
+      ChatMessagesNotifier.new,
+    );
